@@ -2,16 +2,35 @@
 
 window.onload=init;
 function init() {
+    let menustarters=document.getElementById("menuStarters")
+    let menuMainCourses=document.getElementById("menuMainCourses")
+    let menuDessert=document.getElementById("menuStarters")
+    let menuWine=document.getElementById("menuWine")
+
+    if(menustarters) {
     getStarters()
+    document.getElementById("menuStarters").style.display="none"}
+
+    if(menuMainCourses){
     getMainCourses()
+    document.getElementById("menuMainCourses").style.display="none"}
+
+    if(menuDessert) {
     getDesserts()
+    document.getElementById("menuDesserts").style.display="none"}
+
+    if(menuWine){
     getWine()
-
-    document.getElementById("menuStarters").style.display="none"
-    document.getElementById("menuMainCourses").style.display="none"
-    document.getElementById("menuDesserts").style.display="none"
     document.getElementById("menuWine").style.display="none"
+    }
 
+    getReviews()
+
+
+    
+   
+    
+     if(menuWine||menuDessert||menuMainCourses||menustarters){
     let buttonNext1=document.getElementById("buttonNext1")
     buttonNext1.addEventListener("click", goToStarters)
     let buttonBefore2=document.getElementById("buttonBefore2")
@@ -26,8 +45,11 @@ function init() {
     buttonBefore4.addEventListener("click", goToMainCourse)
     let buttonNext4=document.getElementById("buttonNext4")
     buttonNext4.addEventListener("click", goToWine)
-    buttonBefore5=document.getElementById("buttonBefore5")
-    buttonBefore5.addEventListener("click", goToDesserts)
+    let buttonBefore5=document.getElementById("buttonBefore5")
+    buttonBefore5.addEventListener("click", goToDesserts) }
+
+    let buttonaddReview=document.getElementById("addReview")
+    buttonaddReview.addEventListener("click", createReview)
    
 }
 
@@ -188,6 +210,93 @@ async function displayWine (data) {
              //newElLi.setAttribute('id', flag.id) //Skapar attributet id
             //newElLi.appendChild(newText) //Lägger newText som "barn" till newElLi
             wines.appendChild(newElLi) // Lägger newElLi som "barn" till expEl
+    })
+        
+
+    } 
+
+                //Funktion för att skapa förrätt
+        async function createReview (e){
+
+            console.log("test");
+            
+
+            e.preventDefault();
+              //Hämtar från html-element
+            let reviewNameEl=document.getElementById("reviewName")
+            let reviewREl=document.getElementById("reviewR")
+          
+     
+                //Hämtar värden från inputraderna
+             let reviewName=reviewNameEl.value
+             let reviewDescription=reviewREl.value
+        
+            
+               //objekt för förrätt
+            let review = {  
+            reviewName: reviewName,
+            reviewDescription: reviewDescription,
+          
+            }
+       
+
+            //POST- hämtar data
+            try {const response = await fetch ("http://127.0.0.1:3000/api/review", {
+                method: "POST",
+                headers: {
+                    "content-type": "Application/json"
+            
+                },
+                body: JSON.stringify(review)
+            })
+
+            if(response.ok) {
+            const data= await response.json();
+            console.log(data);
+
+        
+            
+        
+        } }catch(error) {
+
+            console.log("går ej att lägga till omdöme" +error);
+            
+        }
+
+        //Rensar formulär när man skapat förrätt
+           // reviewNameEl.value=""
+            //reviewREl.value=""
+           
+           
+         getReviews()
+
+       
+    }
+
+        async function getReviews (){
+
+       try {const response = await fetch ("http://127.0.0.1:3000/api/reviews")
+        if(response.ok) {
+            const data= await response.json();
+            console.log(data);
+            displayReviews(data) }} catch {
+            console.log("fel");}          
+        
+     
+    }
+
+
+async function displayReviews (data) {
+        let reviews = document.getElementById("reviewsUl")
+        reviews.innerHTML="";
+
+
+        data.forEach(review => {
+            let newElLi= document.createElement ("li")      //Skapar nytt element (li)
+            newElLi.innerHTML= (`<strong>${review.reviewName}</strong> <br> ${review.reviewDescription}`) //Skapar texten till det som visas i listan
+             //newElLi.setAttribute('id', flag.id) //Skapar attributet id
+            //newElLi.appendChild(newText) //Lägger newText som "barn" till newElLi
+            reviews.appendChild(newElLi) // Lägger newElLi som "barn" till expEl
     })
         
 
