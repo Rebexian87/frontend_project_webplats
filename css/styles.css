@@ -216,3 +216,23 @@ form {
 .position2about{
     grid-area: 1/8/2/-1;
 }
+
+.position3about
+{
+    grid-area: 2/1/3/8;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.position4about
+{
+    grid-area: 2/9/3/-1;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.position5about
+{
+    grid-area: 4/1/5/-1;
+}
+

@@ -24,7 +24,17 @@ function init() {
     document.getElementById("menuWine").style.display="none"
     }
 
-    getReviews()
+    let formReviews=document.getElementById("reviews")
+
+    if(formReviews)  {
+    getReviews() 
+    let buttonaddReview=document.getElementById("addReview")
+    buttonaddReview.addEventListener("click", createReview)}
+
+
+    let formContactUs=document.getElementById("contactUS")
+    if(formContactUs){
+    document.getElementById("addcontactUs").addEventListener("click", createContactUs)}
 
 
     
@@ -48,8 +58,7 @@ function init() {
     let buttonBefore5=document.getElementById("buttonBefore5")
     buttonBefore5.addEventListener("click", goToDesserts) }
 
-    let buttonaddReview=document.getElementById("addReview")
-    buttonaddReview.addEventListener("click", createReview)
+
    
 }
 
@@ -302,4 +311,68 @@ async function displayReviews (data) {
 
     } 
 
+    //Here starts contactUs
+
+
+                   //Funktion för att skapa förrätt
+        async function createContactUs (e){
+
+            console.log("test");
+            
+
+            e.preventDefault();
+              //Hämtar från html-element
+            let contactUsNameEl=document.getElementById("contactUsName")
+            let contactUsEmailEl=document.getElementById("contactUsEmail")
+            let contactUsDescriptionEl=document.getElementById("contactUsDescription")
+
+          
+     
+                //Hämtar värden från inputraderna
+             let contactUsName=contactUsNameEl.value
+             let contactUsEmail=contactUsEmailEl.value
+             let contactUsDescription=contactUsDescriptionEl.value
+        
+            
+               //objekt för förrätt
+            let contactUs = {  
+            contactUsName: contactUsName,
+            contactUsEmail: contactUsEmail,
+            contactUsDescription:contactUsDescription,
+          
+            }
+       
+
+            //POST- hämtar data
+            try {const response = await fetch ("http://127.0.0.1:3000/api/contactUs", {
+                method: "POST",
+                headers: {
+                    "content-type": "Application/json"
+            
+                },
+                body: JSON.stringify(contactUs)
+            })
+
+            if(response.ok) {
+            const data= await response.json();
+            console.log(data);
+
+        
+            
+        
+        } }catch(error) {
+
+            console.log("går ej att lägga till kontakta oss" +error);
+            
+        }
+
+        //Rensar formulär när man skapat förrätt
+           // reviewNameEl.value=""
+            //reviewREl.value=""
+           
+           
+       
+
+       
+    }
  
