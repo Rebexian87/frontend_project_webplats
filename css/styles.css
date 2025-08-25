@@ -199,13 +199,16 @@ form {
     margin-top: 10%;
 }
 
+
+
 #lobster, #dinner, #salmon{
     max-width: 80%;
     margin-left:10%;
 }
 
 .buttonIndex{
-      background-color: orangered
+      background-color: orangered;
+     margin:auto
 }
 
 
@@ -234,5 +237,59 @@ form {
 .position5about
 {
     grid-area: 4/1/5/-1;
+}
+
+
+@media only screen and (max-width: 1000px) { 
+    .position1index{
+          grid-area: 1/1/2/-1;
+    }
+       .position2index{
+          grid-area: 2/1/3/-1;
+    }
+       .position3index{
+          grid-area: 3/1/4/-1;
+    }
+       .position4index{
+          grid-area: 4/1/5/-1;
+    }
+       .position5index{
+          grid-area: 5/1/6/-1;
+    }
+       .position6index{
+          grid-area: 6/1/7/-1;
+    }
+
+    .position1about{
+    grid-area: 1/1/2/-1;
+    }
+    
+    .position2about{
+    grid-area: 2/1/3/-1;
+    }
+    
+    .position3about{
+    grid-area: 3/1/4/-1;
+    }
+    
+    .position4about{
+    grid-area: 4/1/5/-1;
+    }
+    
+    .position5about{
+    grid-area: 5/1/6/-1;
+    
+}
+
+h2{
+    margin-top: 5%;
+}
+
+}
+
+footer {
+        background-color: rgb(18, 61, 10);
+    color: white;
+    padding: 2.2em
 }
 
